@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Подати заявку | Collabix</title>
+</head>
+<body>
+    <h1>Подати заявку</h1>
+
+    <h2>{{ role.title }}</h2>
+    <p>Проєкт: {{ role.project.title }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Надіслати заявку
+        </button>
+    </form>
+</body>
+</html>

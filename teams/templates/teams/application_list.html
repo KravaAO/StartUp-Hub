@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Заявки | Collabix</title>
+</head>
+<body>
+
+<h1>Заявки на проєкт: {{ project.title }}</h1>
+
+{% for application in applications %}
+    <div>
+        <h3>{{ application.applicant.username }}</h3>
+
+        <p>
+            Посада: {{ application.project_role.title }}
+        </p>
+
+        <p>{{ application.message }}</p>
+
+        <p>Статус: {{ application.get_status_display }}</p>
+
+        {% if application.status == "pending" %}
+
+            <form method="post"
+                  action="{% url 'teams:approve' application.id %}">
+                {% csrf_token %}
+                <button type="submit">Схвалити</button>
+            </form>
+
+            <form method="post"
+                  action="{% url 'teams:reject' application.id %}">
+                {% csrf_token %}
+                <button type="submit">Відхилити</button>
+            </form>
+
+        {% endif %}
+    </div>
+    <hr>
+{% empty %}
+    <p>Заявок поки немає.</p>
+{% endfor %}
+
+</body>
+</html>
