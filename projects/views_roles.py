@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
@@ -23,7 +24,7 @@ def role_create(request, project_id):
             role = form.save(commit=False)
             role.project = project
             role.save()
-            return redirect('project_detail', pk=project.pk)
+            return redirect('projects:detail', pk=project.pk)
     else:
         form = ProjectRoleForm()
 
@@ -43,7 +44,7 @@ def role_edit(request, role_id):
         form = ProjectRoleForm(request.POST, instance=role)
         if form.is_valid():
             form.save()
-            return redirect('project_detail', pk=role.project.pk)
+            return redirect('projects:detail', pk=role.project.pk)
     else:
         form = ProjectRoleForm(instance=role)
 
@@ -58,8 +59,9 @@ def role_edit(request, role_id):
 @require_POST
 def role_close(request, role_id):
     role = get_object_or_404(ProjectRole.objects.select_related('project'), pk=role_id)
-    _check_project_owner(role.project, request.user)
+    if role.project.owner != request.user:
+        raise Http404('Роль або проєкт не знайдено.')
 
     role.is_open = False
     role.save(update_fields=['is_open'])
-    return redirect('project_detail', pk=role.project.pk)
+    return redirect('projects:detail', pk=role.project.pk)
