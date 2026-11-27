@@ -1,0 +1,41 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Акаунт{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{% static 'accounts/css/accounts.css' %}">
+
+    <script src="{% static 'accounts/js/accounts.js' %}" defer></script>
+</head>
+
+<body class="acc-body">
+
+<div class="acc-page">
+
+    {% if messages %}
+        <div class="acc-messages" aria-label="Повідомлення">
+            {% for message in messages %}
+                <div class="acc-alert acc-alert--{{ message.tags }}"
+                     role="status">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main class="acc-container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</div>
+
+</body>
+</html>
