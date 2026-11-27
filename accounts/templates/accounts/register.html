@@ -1,0 +1,70 @@
+
+{% extends 'accounts/base.html' %}
+
+{% block title %}Реєстрація{% endblock %}
+
+{% block content %}
+
+<section class="acc-card">
+
+    <div class="acc-header">
+        <h1>Реєстрація</h1>
+        <p>Створіть новий обліковий запис</p>
+    </div>
+
+    <form method="POST" class="acc-form">
+        {% csrf_token %}
+
+        {% for error in form.non_field_errors %}
+            <div class="acc-field-error">{{ error }}</div>
+        {% endfor %}
+
+        {% for field in form %}
+            <div class="acc-field">
+
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                <div class="acc-input-wrapper">
+                    {{ field }}
+
+                    {% if field.field.widget.input_type == 'password' %}
+                        <button type="button"
+                                class="acc-password-toggle"
+                                data-password-toggle
+                                aria-label="Показати пароль">
+                            Показати
+                        </button>
+                    {% endif %}
+                </div>
+
+                {% if field.help_text %}
+                    <div class="acc-help">
+                        {{ field.help_text }}
+                    </div>
+                {% endif %}
+
+                {% for error in field.errors %}
+                    <small class="acc-field-error">
+                        {{ error }}
+                    </small>
+                {% endfor %}
+
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="acc-button">
+            Зареєструватися
+        </button>
+
+    </form>
+
+    <div class="acc-footer">
+        <span>Вже маєте акаунт?</span>
+        <a href="{% url 'login' %}">Увійти</a>
+    </div>
+
+</section>
+
+{% endblock %}
