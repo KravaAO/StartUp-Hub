@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+
+    <h1>Profile username</h1>
+
+    <div class="profile">
+        <h2>{{ profile_user.username }}</h2>
+
+        <p>Email: {{ profile_user.email }}</p>
+
+        <p>
+            Status:
+            {% if profile_user.is_active %}
+                Active
+            {% else %}
+                Unactive
+            {% endif %}
+        </p>
+
+        <a href="/">Home</a>
+    </div>
+
+</body>
+</html>
