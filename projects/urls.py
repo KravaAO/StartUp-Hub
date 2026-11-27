@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import views, views_roles
 
 app_name = 'projects'
 
@@ -10,8 +10,7 @@ urlpatterns = [
     path('<int:pk>/', views.project_detail, name='detail'),
     path('<int:pk>/edit/', views.project_edit, name='edit'),
     path('<int:pk>/publish/', views.project_publish, name='publish'),
-    # TODO (after Georgiy's PR is merged): role routes
-    # path('<int:project_pk>/roles/new/', views_roles.role_create, name='role_create'),
-    # path('roles/<int:pk>/edit/', views_roles.role_edit, name='role_edit'),
-    # path('roles/<int:pk>/close/', views_roles.role_close, name='role_close'),
+    path('<int:project_id>/roles/new/', views_roles.role_create, name='role_create'),
+    path('roles/<int:role_id>/edit/', views_roles.role_edit, name='role_edit'),
+    path('roles/<int:role_id>/close/', views_roles.role_close, name='role_close'),
 ]
