@@ -2,6 +2,18 @@ from django.conf import settings
 from django.db import models
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=80, unique=True)
+    slug = models.SlugField(max_length=90, unique=True)
+
+    class Meta:
+        verbose_name_plural = 'categories'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
     class Status(models.TextChoices):
         DRAFT = 'draft', 'Draft'
@@ -18,9 +30,27 @@ class Project(models.Model):
     budget = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     is_public = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='projects',
+    )
+
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self):
         return self.title
+
+    @property
+    def open_roles(self):
+        return [r for r in self.roles.all() if r.is_open]
+
+    @property
+    def open_slots(self):
+        return sum(r.slots for r in self.open_roles)
 
 
 class ProjectRole(models.Model):
