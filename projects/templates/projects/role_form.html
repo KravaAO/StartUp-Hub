@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if is_edit %}Редагувати роль{% else %}Створити роль{% endif %} — {{ project.title }}</title>
+</head>
+<body>
+    <h1>{% if is_edit %}Редагувати роль{% else %}Створити роль{% endif %}</h1>
+    <p>Проєкт: {{ project.title }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if is_edit %}Зберегти зміни{% else %}Створити{% endif %}</button>
+    </form>
+
+    <p><a href="{% url 'projects:detail' project.pk %}">Назад до проєкту</a></p>
+</body>
+</html>
