@@ -52,6 +52,14 @@ class TeamMembership(models.Model):
         on_delete=models.CASCADE,
         related_name="team_memberships"
     )
+    
+    project_role = models.ForeignKey(
+        "projects.ProjectRole",
+        on_delete=models.PROTECT,
+        related_name="memberships",
+        null=True,
+        blank=True
+    )
 
     role = models.CharField(max_length=200)
     joined_at = models.DateTimeField(auto_now_add=True)
