@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Каталог проєктів</title>
+  <link rel="stylesheet" href="../../static/projects/projects.css">
+</head>
+<body>
+  <header class="pj-header">
+    <a class="pj-brand" href="project_list.html">Collabix</a>
+    <p class="pj-header-note">Каталог проєктів</p>
+  </header>
+
+  <main class="pj-page">
+    <form class="pj-filters" action="#" method="get">
+      <label class="pj-field">
+        Назва
+        <input type="search" name="q" placeholder="Пошук за назвою">
+      </label>
+      <label class="pj-field">
+        Статус
+        <select name="status">
+          <option value="">Усі</option>
+          <option>Чернетка</option>
+          <option>Набір</option>
+          <option>Активний</option>
+          <option>Архів</option>
+        </select>
+      </label>
+      <label class="pj-field">
+        Категорія
+        <select name="category">
+          <option value="">Усі</option>
+          <option>Освіта</option>
+          <option>Сервіс</option>
+          <option>Креатив</option>
+        </select>
+      </label>
+    </form>
+
+    <section class="pj-grid" aria-label="Проєкти">
+      <article class="pj-card">
+        <div class="pj-card-tags">
+          <span class="pj-status pj-status-active">Активний</span>
+          <span class="pj-category">Освіта</span>
+        </div>
+        <h2 class="pj-card-title">
+          <a href="project_detail.html">Обмін конспектами</a>
+        </h2>
+        <p class="pj-card-lead">Студенти діляться короткими нотатками з пар.</p>
+        <p class="pj-card-slots">Відкритих місць: 2</p>
+      </article>
+
+      <article class="pj-card">
+        <div class="pj-card-tags">
+          <span class="pj-status pj-status-recruiting">Набір</span>
+          <span class="pj-category">Сервіс</span>
+        </div>
+        <h2 class="pj-card-title">
+          <a href="project_detail.html">Маркет локальних кав'ярень</a>
+        </h2>
+        <p class="pj-card-lead">Карта кав'ярень поруч із домом і пошук команди.</p>
+        <p class="pj-card-slots">Відкритих місць: 3</p>
+      </article>
+
+      <article class="pj-card">
+        <div class="pj-card-tags">
+          <span class="pj-status pj-status-recruiting">Набір</span>
+          <span class="pj-category">Креатив</span>
+        </div>
+        <h2 class="pj-card-title">
+          <a href="project_detail.html">Майстерня історій</a>
+        </h2>
+        <p class="pj-card-lead">Короткі історії міста, які збирає маленька редакція.</p>
+        <p class="pj-card-slots">Відкритих місць: 1</p>
+      </article>
+    </section>
+
+    <!-- Порожній стан: прибери hidden, коли карток немає, і сховай сітку. -->
+    <div class="pj-empty" hidden>
+      <p class="pj-empty-title">Проєктів ще немає</p>
+      <p class="pj-empty-text">Коли з’явиться ідея, вона стане карткою в цьому списку.</p>
+    </div>
+  </main>
+</body>
+</html>
