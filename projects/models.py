@@ -44,6 +44,14 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def open_roles(self):
+        return [r for r in self.roles.all() if r.is_open]
+
+    @property
+    def open_slots(self):
+        return sum(r.slots for r in self.open_roles)
+
 
 class ProjectRole(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='roles')
